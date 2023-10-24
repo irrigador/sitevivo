@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pagina Web</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Poppins&display=swap" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins';
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    background-color: #f2f2f2;
+    padding: 10px 0;
+}
+
+.tab {
+    margin: 0 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab:hover {
+    background-color: #ddd;
+}
+
+.tab-active {
+    font-weight: bold;
+    background-color: #ccc;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    width: 100%; /* Garante que o conteúdo ocupe toda a largura */
+}
+
+h1 {
+    margin: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    
+    
+}
+
+label {
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+}
+
+input[type="text"], input[type="date"], select {
+    width: 200px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #6A0DAD; /* Cor roxa */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+button:hover {
+    background-color: #8e24aa; /* Roxo mais claro */
+}
+
+textarea {
+	font-size: 19px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+[data-tab-content] {
+    display: none;
+}
+
+.tab-content-active {
+    display: block;
+}
+
+.conversion-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 20px; /* Adicionado padding para afastar da direita */
+}
+
+.conversion-input {
+    width: 70px; /* Aumentado o tamanho do campo de entrada */
+    margin-right: 5px;
+    margin-left: 5px; /* Adicionado margem à esquerda para menor espaçamento entre a label e o campo */
+}
+
+#conversion-result {
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.label1 {
+    text-align: right;
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="tabs">
+    <div data-tab="#content1" class="tab">Cadastrar</div>
+    <div data-tab="#content2" class="tab">Ligar Depois</div>
+    <div data-tab="#content3" class="tab">Notas</div> <!-- Adicionado o novo item de menu -->
+    <div class="conversion-container">
+        <label class="label1">Ligações: </label>
+        <input type="number" id="callCount" class="conversion-input">
+        <label class="label1">Vendas: </label>
+        <input type="number" id="saleCount" class="conversion-input">
+        <button onclick="calculateConversion()">Calcular</button>
+        <span id="conversion-result"></span>
+    </div>
+</div>
+
+<div data-tab-content id="content1" class="content">
+     <h1>Titulo contrato</h1>
+        <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="inputNome">
+            <div class="tooltip">
+                <button onclick="copyText('inputNome')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>CPF:</label>
+            <input type="text" id="inputCPF">
+            <div class="tooltip">
+                <button onclick="copyText('inputCPF')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Numero:</label>
+            <input type="text" id="inputNumero">
+            <div class="tooltip">
+                <button onclick="copyText('inputNumero')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Dt Nasc.:</label>
+            <input type="date" id="inputDataNascimento">
+            <div class="tooltip">
+                <button onclick="copyText('inputDataNascimento')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Nome da mãe:</label>
+            <input type="text" id="inputNomeMae">
+            <div class="tooltip">
+                <button onclick="copyText('inputNomeMae')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Estado Civil:</label>
+            <input type="text" id="inputEstadoCivil">
+            <div class="tooltip">
+                <button onclick="copyText('inputEstadoCivil')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>E-mail:</label>
+            <input type="text" id="inputEmail">
+            <div class="tooltip">
+                <button onclick="copyText('inputEmail')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div >
+            <label>CEP:</label>
+            <input type="text" id="inputCEP">
+            <div class="tooltip">
+                <button onclick="copyText('inputCEP')">Copiar</button>
+                <span class="tooltiptext">Copiar conteúdo</span>
+            </div>
+        </div>
+        <div >
+            <label>Complemento:</label>
+            <select>
+                <option>Casa</option>
+                <option>Apartamento</option>
+                <option>Outros:</option>
+            </select>
+       
+           
+        </div>
+       	<button onclick="saveToPDF()">Salvar</button>
+        <button onclick="limparCampos()">Limpar</button>
+</div>
+
+<div data-tab-content id="content2" class="content">
+    <h1>Ligardepois</h1>
+    <form>
+        <label for="n1">CPF: </label>
+        <input type="text" id="n1" name="n1">
+        <label for="n2">Número: </label>
+        <input type="text" id="n2" name="n2">
+        <label for="n3">Horário: </label>
+        <input type="time" id="n3" name="n3"> 
+        <button type="button" class="roxo" onclick="generatePDF()">Gerar PDF</button>
+    </form>
+</div>
+
+<div data-tab-content id="content3" class="content">
+    <h1>Notas</h1>
+    <textarea rows="30" cols="100"></textarea> <!-- Textarea grande adicionado aqui -->
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script>
+    function copyText(inputId) {
+        const inputField = document.getElementById(inputId);
+        inputField.select();
+        document.execCommand("copy");
+    }
+
+    const tabs = document.querySelectorAll('[data-tab]'),
+          tabContents = document.querySelectorAll('[data-tab-content]');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = document.querySelector(tab.dataset.tab);
+
+            tabContents.forEach(tc => {
+                tc.classList.remove('tab-content-active');
+            });
+            target.classList.add('tab-content-active');
+
+            tabs.forEach(t => {
+                t.classList.remove('tab-active');
+            });
+            tab.classList.add('tab-active');
+        });
+    });
+
+function calculateConversion() {
+        const callCount = parseFloat(document.getElementById('callCount').value) || 0;
+        const saleCount = parseFloat(document.getElementById('saleCount').value) || 0;
+
+        if(callCount === 0) {
+            alert('Insira a quantidade de ligações.');
+            return;
+        }
+
+        const conversionRate = (saleCount / callCount) * 100;
+        document.getElementById('conversion-result').textContent = `Conversão: ${conversionRate.toFixed(2)}%`;
+    }
+
+    function limparCampos() {
+            document.getElementById('inputNome').value = '';
+            document.getElementById('inputCPF').value = '';
+            document.getElementById('inputNumero').value = '';
+            document.getElementById('inputDataNascimento').value = '';
+            document.getElementById('inputNomeMae').value = '';
+            document.getElementById('inputEstadoCivil').value = '';
+            document.getElementById('inputEmail').value = '';
+            document.getElementById('inputCEP').value = '';
+        }
+</script>
+    
+</body>
+</html>
